@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { LoggedInUserI } from './types/user.interface';
 import {
   UserLoginReqValuesI,
@@ -16,6 +16,7 @@ import { LocalStorageService } from '../../shared/services/local-storage.service
 export class AuthService {
   private _user = signal<LoggedInUserI | null | undefined>(undefined);
   loggedInUser = this._user.asReadonly();
+  isLoggedIn = computed(() => (this._user() ? true : false));
   private authUrl = environment.apiUrl + 'auth/';
   private userUrl = environment.apiUrl + 'user/';
 

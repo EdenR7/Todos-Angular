@@ -1,12 +1,29 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './core/layout/layout.component';
 import { AuthLayoutComponent } from './core/auth/components/auth-layout/auth-layout.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    // children: [{}],
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./core/generic-home/generic-home.component').then(
+            (m) => m.GenericHomeComponent
+          ),
+      },
+      {
+        path: 'todos',
+        loadComponent: () =>
+          import('./features/todos/todos.component').then(
+            (m) => m.TodosComponent
+          ),
+        canActivate: [AuthGuard],
+      },
+    ],
   },
   {
     path: 'auth',
