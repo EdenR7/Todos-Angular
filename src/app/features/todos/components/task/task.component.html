@@ -1,0 +1,8 @@
+<div>
+  <mat-checkbox
+    (change)="onToggleComplete($event.checked)"
+    [checked]="task?.isComplete"
+    class="example-margin"
+    >{{ task?.id }}</mat-checkbox
+  >
+</div>

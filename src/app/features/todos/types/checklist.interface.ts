@@ -4,8 +4,8 @@ export interface checkListI {
   id: string;
   todoId: string;
   title: string;
-  dueDate: Date | null;
-  createdAt: Date;
-  updatedAt: Date;
+  dueDate: string | null;
+  createdAt: string;
+  updatedAt: string;
   tasks: TaskI[];
 }

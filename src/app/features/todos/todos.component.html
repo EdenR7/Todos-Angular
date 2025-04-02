@@ -1,7 +1,12 @@
-<ng-container *ngIf="todos$ | async as todos">
-  <ul>
-    <li *ngFor="let todo of todos">
-      <h1>{{ todo.title }}</h1>
-    </li>
-  </ul>
+<!-- <ng-container *ngIf="todos$ | async as todos">
+  <app-create-todo-form></app-create-todo-form>
+  <app-todo-list [todoList]="todos"></app-todo-list>
+</ng-container> -->
+<ng-container *ngIf="(todos() ?? []).length > 0; else noTodos">
+  <app-create-todo-form></app-create-todo-form>
+  <app-todo-list [todoList]="todos() ?? []"></app-todo-list>
 </ng-container>
+
+<ng-template #noTodos>
+  <p>No todos found.</p>
+</ng-template>
