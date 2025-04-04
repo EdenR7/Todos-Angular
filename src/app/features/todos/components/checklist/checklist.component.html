@@ -1,7 +1,7 @@
 <ng-container *ngIf="checkList !== null">
-  <div>
+  <div class=" w-full">
     <h3 class="font-medium">{{ checkList.title }}</h3>
-    <ul>
+    <ul class=" w-full">
       <li *ngFor="let task of checkList.tasks; trackBy: trackByTaskId">
         <app-task [task]="task"></app-task>
       </li>

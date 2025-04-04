@@ -1,5 +1,5 @@
 <ng-container *ngIf="task !== null">
-  <div>
+  <div class="flex gap-2 items-center">
     <input
       type="checkbox"
       [checked]="task.isComplete"
@@ -7,6 +7,12 @@
       [name]="task.id"
       [id]="task.id"
     />
-    <label [for]="task.id">{{ task.title }}</label>
+    <input
+      class="outline-1 w-full px-1"
+      type="text"
+      [(ngModel)]="task.title"
+      (blur)="changeTitle()"
+    />
+    <!-- <label [for]="task.id">{{ task.title }}</label> -->
   </div>
 </ng-container>

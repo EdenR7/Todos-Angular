@@ -10,10 +10,11 @@ import { TaskI } from '../../types/task.interface';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../../services/task.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-task',
-  imports: [MatCheckboxModule, CommonModule],
+  imports: [MatCheckboxModule, CommonModule, FormsModule],
   templateUrl: './task.component.html',
   styleUrl: './task.component.scss',
 })
@@ -29,15 +30,31 @@ export class TaskComponent implements OnInit {
     return this.task !== null;
   }
 
-  toggleIsComplete(event: Event): void {
+  async toggleIsComplete(event: Event): Promise<void> {
     event.preventDefault();
     // const target = event.target as HTMLInputElement;
     // const taskId = target.id;
+    if (!this.task) return;
 
-    if (!this.task) {
-      return;
+    try {
+      const newIsCompleteValue = !this.task.isComplete;
+      await this.taskService.toggleTaskCompletion(
+        this.task,
+        newIsCompleteValue
+      );
+      this.task.isComplete = newIsCompleteValue;
+    } catch (error) {
+      console.log(error);
     }
-    this.taskService.toggleTaskCompletion(this.task);
-    this.task.isComplete = !this.task.isComplete;
+  }
+
+  async changeTitle(): Promise<void> {
+    if (!this.task) return;
+    try {
+      await this.taskService.updateTaskTitle(this.task, this.task.title);
+      
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

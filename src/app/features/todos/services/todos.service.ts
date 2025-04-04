@@ -34,6 +34,5 @@ export class TodosService {
   updateLocalWithNewState(mutator: (todos: TodoI[]) => TodoI[]): void {
     this._todos.update(mutator);
     console.log(this._todos());
-    
   }
 }

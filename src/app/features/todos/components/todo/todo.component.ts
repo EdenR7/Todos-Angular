@@ -6,6 +6,8 @@ import { AuthService } from '../../../../core/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { ChecklistComponent } from '../checklist/checklist.component';
 import { checkListI } from '../../types/checklist.interface';
+import { TaskComponent } from '../task/task.component';
+import { TaskI } from '../../types/task.interface';
 
 @Component({
   selector: 'app-todo',
@@ -14,6 +16,7 @@ import { checkListI } from '../../types/checklist.interface';
     FormatCreatedByPipe,
     CommonModule,
     ChecklistComponent,
+    TaskComponent,
   ],
   templateUrl: './todo.component.html',
   styleUrl: './todo.component.scss',
@@ -26,6 +29,9 @@ export class TodoComponent implements OnInit {
 
   trackByChecklistId(index: number, cl: checkListI) {
     return cl.id;
+  }
+  trackByTaskId(index: number, task: TaskI) {
+    return task.id;
   }
 
   ngOnInit(): void {
