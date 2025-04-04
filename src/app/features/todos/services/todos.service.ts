@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 // import { LocalStorageService } from '../../shared/services/local-storage.service';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { TodoI } from '../types/todo.interface';
 import { environment } from '../../../../environments/environment';
 
@@ -19,20 +19,21 @@ export class TodosService {
   todosApiUrl = environment.apiUrl + 'todos/';
 
   getTodos(): Observable<TodoI[]> {
-    return this.http.get<TodoI[]>(this.todosApiUrl);
+    return this.http.get<TodoI[]>(this.todosApiUrl).pipe(
+      tap((array: TodoI[]) => {
+        this._todos.set([...array]);
+        return array;
+      })
+    );
   }
 
-  // updateTodo(todoId: number, changes: Partial<TodoI>) {
-  //   this._todos.mutate(todos => {
-  //     const todo = todos.find(t => t.id === todoId);
-  //     if (todo) Object.assign(todo, changes);
-  //   });
+  get() {
+    return this.todos;
+  }
 
-  //   return this.http.patch(`${this.apiUrl}${todoId}/`, changes);
-  // }
-
-  // 👇 Used for pure update logic
-  updateLocalWithNewState(mutator: (todos: TodoI[]) => TodoI[]) {
+  updateLocalWithNewState(mutator: (todos: TodoI[]) => TodoI[]): void {
     this._todos.update(mutator);
+    console.log(this._todos());
+    
   }
 }

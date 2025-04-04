@@ -16,12 +16,8 @@ export class LocalStorageService {
   }
   get(key: string): unknown {
     try {
-      console.log(key);
-      const localStorageKey = this.localStoragePre + key;
-      console.log(localStorageKey);
       const localStorageItem =
         localStorage.getItem(this.localStoragePre + key) || null;
-      console.log(localStorageItem);
 
       return localStorageItem ? JSON.parse(localStorageItem) : null;
     } catch (error) {

@@ -11,17 +11,10 @@
 <div class="px-2">
   <ul class="flex flex-col gap-2">
     <li
-      *ngFor="let checkList of todo?.checklists"
+      *ngFor="let checkList of todo?.checklists; trackBy: trackByChecklistId"
       class="border rounded-md flex p-2"
     >
-      <div>
-        <h3 class="font-medium">{{ checkList.title }}</h3>
-        <ul>
-          <li *ngFor="let task of checkList.tasks">
-            <app-task [task]="task" ></app-task>
-          </li>
-        </ul>
-      </div>
+      <app-checklist [checkList]="checkList"></app-checklist>
     </li>
   </ul>
 </div>

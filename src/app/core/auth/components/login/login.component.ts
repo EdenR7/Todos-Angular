@@ -35,7 +35,6 @@ export class LoginComponent {
     if (this.form.invalid || !password || !email) return;
     this.authService.login({ email, password }).subscribe({
       next: (user) => {
-        console.log('User :', user);
         this.router.navigateByUrl('/');
       },
       error: (error) => {

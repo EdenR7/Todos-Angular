@@ -42,8 +42,6 @@ export class AuthService {
   }
 
   async getUser(): Promise<LoggedInUserI | null> {
-    console.log('Refetching user...');
-
     const token = this.localStorageService.get('token');
     if (!token) {
       this._user.set(null);
@@ -54,7 +52,6 @@ export class AuthService {
       const user = await this.http
         .get<UserLoginResValuesI>(this.userUrl)
         .toPromise();
-      console.log(user);
       if (!user) return null;
 
       this._user.set(user);

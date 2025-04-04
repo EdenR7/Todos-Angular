@@ -1,8 +1,12 @@
-<div>
-  <mat-checkbox
-    (change)="onToggleComplete($event.checked)"
-    [checked]="task?.isComplete"
-    class="example-margin"
-    >{{ task?.id }}</mat-checkbox
-  >
-</div>
+<ng-container *ngIf="task !== null">
+  <div>
+    <input
+      type="checkbox"
+      [checked]="task.isComplete"
+      (change)="toggleIsComplete($event)"
+      [name]="task.id"
+      [id]="task.id"
+    />
+    <label [for]="task.id">{{ task.title }}</label>
+  </div>
+</ng-container>

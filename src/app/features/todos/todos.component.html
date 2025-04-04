@@ -2,11 +2,11 @@
   <app-create-todo-form></app-create-todo-form>
   <app-todo-list [todoList]="todos"></app-todo-list>
 </ng-container> -->
-<ng-container *ngIf="(todos() ?? []).length > 0; else noTodos">
+<ng-container *ngIf="hasTodos()">
   <app-create-todo-form></app-create-todo-form>
-  <app-todo-list [todoList]="todos() ?? []"></app-todo-list>
+  <app-todo-list [todoList]="getTodosValue()"></app-todo-list>
 </ng-container>
 
-<ng-template #noTodos>
+<!-- <ng-template #noTodos>
   <p>No todos found.</p>
-</ng-template>
+</ng-template> -->
