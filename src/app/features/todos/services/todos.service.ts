@@ -31,8 +31,22 @@ export class TodosService {
     return this.todos;
   }
 
+  deleteTodo(todoId: string): Observable<TodoI> {
+    const deleteApiUrl = this.todosApiUrl + todoId;
+    return this.http.delete<TodoI>(deleteApiUrl).pipe(
+      tap(() => {
+        this._todos.update((todos: TodoI[]) => {
+          return todos.filter((todo) => {
+            return todo.id !== todoId;
+          });
+        });
+        console.log(this._todos());
+      })
+    );
+  }
+
   updateLocalWithNewState(mutator: (todos: TodoI[]) => TodoI[]): void {
     this._todos.update(mutator);
-    console.log(this._todos());
+    // console.log(this._todos());
   }
 }

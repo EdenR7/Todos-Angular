@@ -1,4 +1,7 @@
 <header class="mb-4">
+  <div class="absolute top-4 right-4">
+    <button class="text-red-500 text-sm hover:font-medium" (click)="deleteTodo()">delete</button>
+  </div>
   <h1 class="text-lg font-semibold">{{ todo?.title }}</h1>
   <p class="text-xs text-slate-400">
     Created at <span>{{ todo?.createdAt | formatDate }}</span
@@ -19,9 +22,9 @@
   <ul class="flex min-w-full flex-col gap-2">
     <li
       *ngFor="let checkList of todo?.checklists; trackBy: trackByChecklistId"
-      class="border rounded-md w-full  p-2"
+      class="border rounded-md w-full p-2"
     >
-      <app-checklist [checkList]="checkList"></app-checklist>
+      <app-checklist [checklistInput]="checkList"></app-checklist>
     </li>
   </ul>
 </div>

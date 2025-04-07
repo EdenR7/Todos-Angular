@@ -1,7 +1,26 @@
-<ng-container *ngIf="checkList !== null">
-  <div class=" w-full">
-    <h3 class="font-medium">{{ checkList.title }}</h3>
-    <ul class=" w-full">
+<ng-container *ngIf="checkList() !== null && checkList() as checkList">
+  <div class="w-full">
+    <div>
+      <div class="relative">
+        <button class="absolute right-2" (click)="toggleChecklistTasks()">
+          <mat-icon>{{ changeDisplayChecklistI }}</mat-icon>
+        </button>
+      </div>
+      <h3 class="font-medium">{{ checkList.title }}</h3>
+      <div class="flex gap-2 items-center">
+        <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+          <div
+            [style.width.%]="completationPrecentage() * 100"
+            class="bg-blue-500 h-full transition-all duration-300"
+          ></div>
+        </div>
+
+        <p class="text-sm mt-1 text-gray-600 text-center">
+          {{ completedTasks() }}/{{ checkList.tasks.length }} Completed
+        </p>
+      </div>
+    </div>
+    <ul class="w-full" *ngIf="displayChecklist">
       <li *ngFor="let task of checkList.tasks; trackBy: trackByTaskId">
         <app-task [task]="task"></app-task>
       </li>

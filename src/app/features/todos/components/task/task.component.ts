@@ -11,10 +11,11 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../../services/task.service';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-task',
-  imports: [MatCheckboxModule, CommonModule, FormsModule],
+  imports: [MatCheckboxModule, CommonModule, FormsModule, RouterLink],
   templateUrl: './task.component.html',
   styleUrl: './task.component.scss',
 })

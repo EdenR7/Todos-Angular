@@ -1,7 +1,7 @@
 <ul class="flex gap-10 flex-wrap">
   <li
     *ngFor="let todo of todoList; trackBy: trackByTodoId"
-    class="border rounded-md p-4 flex flex-col min-w-96 max-w-md"
+    class="border rounded-md p-4 flex flex-col min-w-96 max-w-md relative"
   >
     <app-todo [todo]="todo"></app-todo>
   </li>
