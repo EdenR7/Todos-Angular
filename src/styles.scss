@@ -5,6 +5,13 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    @include mat.datepicker-overrides((
+      calendar-date-selected-state-text-color: orange,
+      calendar-date-selected-state-background-color: red,
+    ));
+  }
+
 html {
     @include mat.theme((color: (theme-type: light,
                 primary: $primary-palette,

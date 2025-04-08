@@ -3,8 +3,14 @@
   <app-todo-list [todoList]="todos"></app-todo-list>
 </ng-container> -->
 <ng-container *ngIf="hasTodos()">
-  <app-create-todo-form></app-create-todo-form>
-  <app-todo-list [todoList]="getTodosValue()"></app-todo-list>
+  <div class="w-full flex justify-center mb-12">
+    <div class="min-w-64 w-1/3 max-w-md border rounded-md p-4 mx-auto">
+      <app-create-todo-form></app-create-todo-form>
+    </div>
+  </div>
+  <!-- <div class="w-full flex justify-center"> -->
+    <app-todo-list [todoList]="getTodosValue()"></app-todo-list>
+  <!-- </div> -->
 </ng-container>
 
 <!-- <ng-template #noTodos>

@@ -1,13 +1,15 @@
 <ng-container *ngIf="task !== null">
   <div class="flex gap-2 items-center">
     <input
+      class="cursor-pointer"
       type="checkbox"
       [checked]="task.isComplete"
       (change)="toggleIsComplete($event)"
       [name]="task.id"
       [id]="task.id"
     />
-    <a [routerLink]="['/routePath']" ></a>
+    <a [routerLink]="['/routePath']"></a>
+    <!-- <p class="outline-1 w-full px-1">{{task.title}}</p> -->
     <input
       class="outline-1 w-full px-1"
       type="text"

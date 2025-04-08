@@ -4,7 +4,7 @@ export interface TaskI {
   todoId: string;
   isComplete: boolean;
   title: string;
-  dueDate: string;
+  dueDate: string | null | undefined;
   createdAt: string;
   updatedAt: string;
 }

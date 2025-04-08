@@ -1,1 +1,44 @@
-<p>create-todo-form works!</p>
+<h3 class="text-center font-medium">Create new todo</h3>
+<form class="flex flex-col gap-2">
+  <fieldset class="flex gap-1 flex-col">
+    <input
+      class="rounded-md p-2 px-3 bg-slate-200 placeholder:text-slate-400 outline-none shadow-lg"
+      formControlName="title"
+      placeholder="Todo Title"
+    />
+    <small class="text-red-500 px-1" *ngIf="title.invalid && title.touched">
+      *
+    </small>
+  </fieldset>
+  <button class="flex items-center text-sm">
+    <mat-icon class="text-base">add</mat-icon>Checklist
+  </button>
+
+  <ul>
+    <li
+      *ngFor="let newStdTask of newStandAloneTasks; trackBy: trackByTempId"
+      class="flex items-center mr-4"
+    >
+      <app-create-task-form
+        class="flex-1"
+        [dueDate]="newStdTask.dueDate || null"
+        [title]="newStdTask.title || ''"
+      ></app-create-task-form>
+      <button
+        (click)="removeStdTaskForm(newStdTask.tempId)"
+        class="text-red-500 rounded-full flex flex-col items-center text-center"
+        type="button"
+      >
+        <mat-icon class="text-base">remove</mat-icon>
+        <span class="text-xs">remove</span>
+      </button>
+    </li>
+  </ul>
+  <button
+    type="button"
+    (click)="addStdTaskForm()"
+    class="flex items-center text-sm"
+  >
+    <mat-icon class="text-base">add</mat-icon>Task
+  </button>
+</form>
