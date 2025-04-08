@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { DatePickerComponent } from '../../../../shared/ui/date-picker/date-picker.component';
 import { CreateTaskFormComponent } from '../create-task-form/create-task-form.component';
 import { TaskI } from '../../types/task.interface';
 
@@ -19,6 +18,7 @@ export type taskFormAtt = Pick<TaskI, 'dueDate' | 'title'> & { tempId: number };
     MatInputModule,
     MatDatepickerModule,
     CreateTaskFormComponent,
+    ReactiveFormsModule,
   ],
   templateUrl: './create-todo-form.component.html',
   styleUrl: './create-todo-form.component.scss',
@@ -30,16 +30,11 @@ export class CreateTodoFormComponent {
   newStandAloneTasks: taskFormAtt[] = [];
 
   form = this.fb.group({
-    title: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required],
+    title: ['', [Validators.required]],
   });
 
   get title() {
     return this.form.controls.title;
-  }
-
-  get password() {
-    return this.form.controls.password;
   }
 
   // A closure function to generate incremental IDs
@@ -68,8 +63,15 @@ export class CreateTodoFormComponent {
     return task.tempId;
   }
 
-  async onSubmit() {
-    // const { email, password } = this.form.value;
-    // if (this.form.invalid || !password || !email) return;
+  onTaskFormChange(
+    tempId: number,
+    changes: { title: string; dueDate: string | null }
+  ) {
+    this.newStandAloneTasks = this.newStandAloneTasks.map((task) =>
+      task.tempId === tempId ? { ...task, ...changes } : task
+    );
+    console.log(this.newStandAloneTasks);
   }
+
+  async onSubmit() {}
 }

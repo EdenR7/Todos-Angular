@@ -10,7 +10,7 @@ import { checkListI } from '../../types/checklist.interface';
 import { CommonModule } from '@angular/common';
 import { TaskComponent } from '../task/task.component';
 import { TaskI } from '../../types/task.interface';
-import { calculateCompletationPrecentage } from '../../../../shared/sharedFunctions/calculateCompletationPrecentage';
+import { calculateCompletationPrecentage } from '../../../../shared/utils-functions/calculateCompletationPrecentage';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, Signal } from '@angular/core';
-import { useAuthRedirect } from '../../shared/sharedFunctions/useAuthRedirect';
+import { useAuthRedirect } from '../../shared/utils-functions/useAuthRedirect';
 import { TodosService } from './services/todos.service';
 import { Subscription } from 'rxjs';
 import { TodoI } from './types/todo.interface';
@@ -22,8 +22,8 @@ export class TodosComponent implements OnInit, OnDestroy {
     this.todos = this.todosService.get();
   }
   ngOnInit(): void {
-    console.log("Todos comp initialized");
-    
+    console.log('Todos comp initialized');
+
     this.todos$ = this.todosService.getTodos().subscribe(); // populates the signal
   }
   ngOnDestroy(): void {
@@ -33,7 +33,7 @@ export class TodosComponent implements OnInit, OnDestroy {
   hasTodos(): boolean {
     return this.todos !== null && this.todos().length > 0;
   }
-  
+
   getTodosValue(): TodoI[] | null {
     if (!this.todos) {
       return null;

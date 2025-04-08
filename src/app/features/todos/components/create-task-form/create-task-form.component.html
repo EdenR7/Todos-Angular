@@ -1,6 +1,8 @@
 <div class="mx-4 space-y-2">
   <fieldset class="flex gap-1 flex-col">
     <input
+      [value]="localTitle"
+      (input)="onTitleInput($event)"
       class="rounded-md py-1 px-1 border placeholder:text-slate-400 outline-none shadow-sm"
       formControlName="title"
       placeholder="Task Title"
@@ -9,7 +11,8 @@
   <fieldset class="flex gap-1 flex-col">
     <app-date-picker
       [title]="'Select the due date'"
-      [(value)]="dueDate"
+      [value]="localDueDate"
+      (valueChange)="onDueDateInput($event)"
     ></app-date-picker>
   </fieldset>
 </div>
