@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CreateTaskFormComponent } from '../create-task-form/create-task-form.component';
 import { TaskI } from '../../types/task.interface';
-import { CreateChecklistFormComponent } from "../create-checklist-form/create-checklist-form.component";
+import { CreateChecklistFormComponent } from '../create-checklist-form/create-checklist-form.component';
 
 export type taskFormAtt = Pick<TaskI, 'dueDate' | 'title'> & { tempId: number };
 export type checklistFormAtt = taskFormAtt & { tasks: taskFormAtt[] };
@@ -22,8 +22,8 @@ export type checklistFormAtt = taskFormAtt & { tasks: taskFormAtt[] };
     MatDatepickerModule,
     CreateTaskFormComponent,
     ReactiveFormsModule,
-    CreateChecklistFormComponent
-],
+    CreateChecklistFormComponent,
+  ],
   templateUrl: './create-todo-form.component.html',
   styleUrl: './create-todo-form.component.scss',
 })
@@ -82,6 +82,7 @@ export class CreateTodoFormComponent {
     this.newChecklists = this.newChecklists.filter(
       (cl) => cl.tempId !== clTempId
     );
+    console.log(this.newChecklists);
   }
   onChecklistFormChange(
     tempId: number,
