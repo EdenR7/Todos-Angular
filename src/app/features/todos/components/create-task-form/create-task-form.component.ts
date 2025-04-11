@@ -19,7 +19,7 @@ export class CreateTaskFormComponent implements OnInit {
   }>();
 
   private destroy$ = new Subject<void>();
-  private titleDebouncer = createDebouncer<string>(300); // 300ms debounce
+  private titleDebouncer = createDebouncer<string>(500); // 300ms debounce
 
   localTitle = '';
   localDueDate: string | null = null;

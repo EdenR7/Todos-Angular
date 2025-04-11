@@ -1,0 +1,49 @@
+<div class="mx-4 space-y-2">
+  <fieldset class="flex gap-1 flex-col">
+    <input
+      [value]="localTitle"
+      (input)="onTitleInput($event)"
+      class="rounded-md py-1 px-1 border placeholder:text-slate-400 outline-none shadow-sm"
+      formControlName="title"
+      placeholder="Checklist Title"
+    />
+  </fieldset>
+  <fieldset class="flex gap-1 flex-col">
+    <app-date-picker
+      [title]="'Select the due date'"
+      [value]="localDueDate || null"
+      (valueChange)="onDueDateInput($event)"
+    ></app-date-picker>
+  </fieldset>
+  <div class="">
+    <ul class="flex flex-col gap-4">
+      <li
+        *ngFor="let newStdTask of localChecklistTasks; trackBy: trackByTempId"
+        class="flex items-center border rounded-md py-4"
+      >
+        <app-create-task-form
+          (formChange)="onTaskFormChange(newStdTask.tempId, $event)"
+          class="flex-1"
+          [dueDate]="newStdTask.dueDate || null"
+          [title]="newStdTask.title || ''"
+        ></app-create-task-form>
+        <button
+          (click)="removeClTaskForm(newStdTask.tempId)"
+          class="text-red-500 rounded-full flex flex-col items-center text-center"
+          type="button"
+        >
+          <mat-icon class="text-base">remove</mat-icon>
+          <span class="text-xs">remove</span>
+        </button>
+      </li>
+    </ul>
+    <button
+      type="button"
+      (click)="addClTaskForm()"
+      class="flex items-center text-sm"
+      [class.mt-4]="localChecklistTasks.length > 0"
+    >
+      <mat-icon class="text-base">add</mat-icon>Task
+    </button>
+  </div>
+</div>

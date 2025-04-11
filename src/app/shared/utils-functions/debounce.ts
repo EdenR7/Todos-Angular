@@ -1,7 +1,7 @@
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
-export function createDebouncer<T>(debounceMs = 300) {
+export function createDebouncer<T>(debounceMs = 500) {
   const subject = new Subject<T>();
 
   const debounced$ = subject.pipe(debounceTime(debounceMs));
