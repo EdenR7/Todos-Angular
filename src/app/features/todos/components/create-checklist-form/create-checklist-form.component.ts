@@ -5,7 +5,8 @@ import { DatePickerComponent } from '../../../../shared/ui/date-picker/date-pick
 import { CreateTaskFormComponent } from '../create-task-form/create-task-form.component';
 import {
   checklistFormAtt,
-  taskFormAtt,
+  clTaskFormAtt,
+  stdTaskFormAtt,
 } from '../create-todo-form/create-todo-form.component';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,13 +24,12 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class CreateChecklistFormComponent implements OnInit {
   @Input({ required: true }) checklist!: checklistFormAtt;
-  // @Input() title: string | null = null;
-  // @Input() checklistTasks: taskFormAtt[] = [];
 
   @Output() checklistFormChange = new EventEmitter<{
     title: string;
     dueDate: string | null;
-    tasks: taskFormAtt[];
+    tasks: clTaskFormAtt[];
+    checklistId: string;
   }>();
 
   private destroy$ = new Subject<void>();
@@ -37,7 +37,7 @@ export class CreateChecklistFormComponent implements OnInit {
 
   localTitle: string = '';
   localDueDate: string | null = null;
-  localChecklistTasks: taskFormAtt[] = [];
+  localChecklistTasks: clTaskFormAtt[] = [];
 
   // Component basic functions
   ngOnInit(): void {
@@ -58,7 +58,7 @@ export class CreateChecklistFormComponent implements OnInit {
     this.destroy$.next();
     this.destroy$.complete();
   }
-  trackByTempId(index: number, task: taskFormAtt) {
+  trackByTempId(index: number, task: clTaskFormAtt) {
     return task.tempId;
   }
   // A closure function to generate incremental IDs
@@ -79,12 +79,13 @@ export class CreateChecklistFormComponent implements OnInit {
     this.emitChanges(); // Due date usually doesn't need debounce
   }
   addClTaskForm() {
-    const newStdTask: taskFormAtt = {
+    const newClTask: clTaskFormAtt = {
       title: '',
       dueDate: null,
+      checklistId: this.checklist.tempId.toString(),
       tempId: this.generateTempId(),
     };
-    this.localChecklistTasks.push(newStdTask);
+    this.localChecklistTasks.push(newClTask);
     this.emitChanges(); // Emit changes to update parent component
   }
   removeClTaskForm(taskTempId: number) {
@@ -107,6 +108,7 @@ export class CreateChecklistFormComponent implements OnInit {
       title: this.localTitle,
       dueDate: this.localDueDate || null,
       tasks: this.localChecklistTasks,
+      checklistId: this.checklist.tempId.toString(),
     });
   }
 }

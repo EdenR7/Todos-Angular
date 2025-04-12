@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { TodoI } from '../types/todo.interface';
 import { environment } from '../../../../environments/environment';
+import { NewTodoI } from '../types/todoApi.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -26,11 +27,6 @@ export class TodosService {
       })
     );
   }
-
-  get() {
-    return this.todos;
-  }
-
   deleteTodo(todoId: string): Observable<TodoI> {
     const deleteApiUrl = this.todosApiUrl + todoId;
     return this.http.delete<TodoI>(deleteApiUrl).pipe(
@@ -43,6 +39,20 @@ export class TodosService {
         console.log(this._todos());
       })
     );
+  }
+  createTodo(todo: NewTodoI): Observable<TodoI> {
+    return this.http.post<TodoI>(this.todosApiUrl, todo).pipe(
+      tap((newTodo: TodoI) => {
+        this._todos.update((todos: TodoI[]) => {
+          return [...todos, newTodo];
+        });
+        console.log(this._todos());
+      })
+    );
+  }
+
+  get() {
+    return this.todos;
   }
 
   updateLocalWithNewState(mutator: (todos: TodoI[]) => TodoI[]): void {
